@@ -12,10 +12,12 @@ class Solution:
     """Accepts a pharmacokinetic model and solves it,
     either returning a plot or arrays of the drug concentrations over time
     """
+
     def __init__(self, model):
         """
 
         :param model: model object containing all relevant initial values
+        :arg solution: serves as the variable to which solutions are saved
         """
         self.model = model
         self.solution = None
@@ -62,8 +64,9 @@ class Solution:
         :return: ---
         """
         fig = plt.figure()
-        plt.plot(self.solution.t, self.solution.y[0, :], label=name + '- q_c')
-        plt.plot(self.solution.t, self.solution.y[1, :], label=name + '- q_p1')
+
+        for i in range(0, self.solution.y.shape[0]):
+            plt.plot(self.solution.t, self.solution.y[i, :], label=name+"- cmpt"+str(i))
         plt.legend()
         plt.ylabel('drug mass [ng]')
         plt.xlabel('time [h]')
