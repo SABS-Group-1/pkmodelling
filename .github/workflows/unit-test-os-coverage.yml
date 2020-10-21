@@ -30,6 +30,10 @@ jobs:
           python --version
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install .
+          pip install flake8
+      - name: run style tests
+        run: |
+          python -m flake8
       - name: run unit tests
         run: |
           python -m unittest
