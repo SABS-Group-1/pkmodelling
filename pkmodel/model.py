@@ -17,21 +17,20 @@ class Model:
         self.dose = dose
         self.subcutaneous_compartment = None
         self.peripheral_compartments = []
+        self.number_of_compartments = 1
+        self.number_of_peripheral_compartments = 0
 
     def add_subcutaneous_compartment(self, absorption_rate=1):
         if self.subcutaneous_compartment:
             raise AttributeError("There can only be one subcutaneous compartment.")
         else:
             self.subcutaneous_compartment = absorption_rate
+            self.number_of_compartments += 1
 
     def add_peripheral_compartment(self, vol_p=1, q_p=1):
         self.peripheral_compartments.append({"vol_p":vol_p, "q_p": q_p})
-
-    def get_number_of_compartments(self):
-        if self.subcutaneous_compartment:
-            return 2 + len(self.peripheral_compartments)
-        else:
-            return 1 + len(self.peripheral_compartments)
+        self.number_of_compartments += 1
+        self.number_of_peripheral_compartments += 1
 
 
 if __name__ == "__main__":
