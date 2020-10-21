@@ -2,23 +2,6 @@
 # Model class
 #
 
-import numpy as np
-import scipy.integrate
-import pkmodel as pk
-
-
-def dose(t, X):
-    return X
-
-
-def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
-    q_c, q_p1 = y
-    transition = Q_p1 * (q_c / V_c - q_p1 / V_p1)
-    dqc_dt = dose(t, X) - q_c / V_c * CL - transition
-    dqp1_dt = transition
-    return [dqc_dt, dqp1_dt]
-
-
 class Model:
     """A Pharmokinetic (PK) model
 
@@ -49,20 +32,3 @@ class Model:
         self.V_p1 = V_p1 # should be >0
         self.Q_p1 = Q_p1 # should be >0
         self.X = X # should be >0
-
-    def solve(self):
-        t_eval = np.linspace(0, 1, 10)
-        y0 = np.array([0.0, 0.0])
-
-        sol = scipy.integrate.solve_ivp(
-            fun=lambda t, y: rhs(t, y, self.Q_p1, self.V_c, self.V_p1, self.CL, self.X),
-            t_span=[t_eval[0], t_eval[-1]],
-            y0=y0, t_eval=t_eval)
-        return sol
-
-
-if __name__ == "__main__":
-    model = Model()
-    solution = model.solve()
-    plot = pk.Solution()
-    plot.plot(solution, "Test")
