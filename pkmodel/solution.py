@@ -31,11 +31,38 @@ class Solution:
         :param y: value from which the ODE expression is calculated
         :return: derivative of drug concentrations with respect to time
         """
-        q_c, q_p1 = y
-        transition = self.model.Q_p1 * (q_c / self.model.V_c - q_p1 / self.model.V_p1)
-        dqc_dt = self.model.X - q_c / self.model.V_c * self.model.CL - transition
-        dqp1_dt = transition
-        return [dqc_dt, dqp1_dt]
+
+        if self.model.subcutaneous_compartment:
+            # if a subcutaneous compartment was added, we proceed with the respective model
+            pass
+
+        else:
+            # if no subcutaneous compartment was added, we proceed with an intravenous bolus model
+
+            number_of_compartments = self.model.get_number_of_compartments()
+            qi = np.full(number_of_compartments, y)  # we initialize all concentrations to y
+            dqi_dt = np.zeros(number_of_compartments)  # and all derivatives to zero
+
+            # we then calculate the transitions between the central and each peripheral compartment
+            # CAREFUL: be aware of the slightly awkward fact that we have to loop from 0 to number-1 to
+            # get the parameters for the peripheral compartments, but need to loop over the qi array
+            # with i+1 to get the respective concentrations
+
+            transitions = np.zeros(number_of_compartments-1)
+            for i in range(0, number_of_compartments-1):
+                transitions[i] = self.model.peripheral_compartments[i]['q_p'] * (qi[0] / self.model.vol_c - qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
+
+            # we then calculate the derivatives of each concentration wrt time
+            # as shown in the project description
+
+            for i in range(0, number_of_compartments):
+                if i == 0:
+                    dqi_dt[i] = self.model.dose - qi[i] / self.model.vol_c - np.sum(transitions)
+                else:
+                    dqi_dt[i] = transitions[i-1]
+
+            # and return a list with all of the derivatives
+            return list(dqi_dt)
 
     def solve(self):
         """
@@ -46,7 +73,7 @@ class Solution:
         :return: scipy bunch object
         """
         t_eval = np.linspace(0, 1, 10)
-        y0 = np.array([0.0, 0.0])
+        y0 = np.zeros(self.model.get_number_of_compartments())
 
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: self.system_of_equations(t, y),
@@ -75,7 +102,9 @@ class Solution:
 
 if __name__ == "__main__":
     dummy_model = Model()
+    dummy_model.add_peripheral_compartment(2,4)
+    dummy_model.add_peripheral_compartment(1,5)
     solver = Solution(dummy_model)
-    solution = solver.solve()
+    solver.solve()
     solver.plot("Test")
 

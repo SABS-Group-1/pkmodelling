@@ -11,24 +11,31 @@ class Model:
         an example paramter
     """
 
-    def __init__(self, model_type="IB", compartment_no=1, CL=1.0, V_c=1.0, V_p1=1, Q_p1=1, X=1):
-        """
-        Initialisation of the model class, fixed for one compartment and a discrete initial dose for now
+    def __init__(self, clearance_rate=1, vol_c=1, dose=1):
+        self.clearance_rate = clearance_rate
+        self.vol_c = vol_c
+        self.dose = dose
+        self.subcutaneous_compartment = None
+        self.peripheral_compartments = []
 
-        :param model_type: type of PK model (either intravenous bolus or subcutaneous)
-        :param compartment_no: number of peripheral compartments
-        :param CL: clearance rate from the central compartment
-        :param Vc: volume of the central compartment
-        :param Vp1: volume of the peripheral compartment
-        :param Qp1: diffusion rate beween the central and the peripheral compartment
-        :param X: (one-time) dose
-        """
+    def add_subcutaneous_compartment(self, absorption_rate=1):
+        if self.subcutaneous_compartment:
+            raise AttributeError("There can only be one subcutaneous compartment.")
+        else:
+            self.subcutaneous_compartment = absorption_rate
 
-        self.model_type = model_type  # one of two str (IB, SC)
-        self.compartment_no = compartment_no # should be positive int
-        self.CL = CL # should be >0
-        self.V_c = V_c # should be >0
-        # possible for loop / list for later
-        self.V_p1 = V_p1 # should be >0
-        self.Q_p1 = Q_p1 # should be >0
-        self.X = X # should be >0
+    def add_peripheral_compartment(self, vol_p=1, q_p=1):
+        self.peripheral_compartments.append({"vol_p":vol_p, "q_p": q_p})
+
+    def get_number_of_compartments(self):
+        if self.subcutaneous_compartment:
+            return 2 + len(self.peripheral_compartments)
+        else:
+            return 1 + len(self.peripheral_compartments)
+
+
+if __name__ == "__main__":
+    model = Model()
+    model.add_peripheral_compartment(1,1)
+    model.add_peripheral_compartment(2,2)
+    print(model.peripheral_compartments[0]["q_p"], model.peripheral_compartments[1]["q_p"])
