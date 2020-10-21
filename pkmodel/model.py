@@ -2,9 +2,9 @@
 # Model class
 #
 
-import matplotlib.pylab as plt
 import numpy as np
 import scipy.integrate
+import pkmodel as pk
 
 
 def dose(t, X):
@@ -50,7 +50,6 @@ class Model:
         self.Q_p1 = Q_p1 # should be >0
         self.X = X # should be >0
 
-
     def solve(self):
         t_eval = np.linspace(0, 1, 10)
         y0 = np.array([0.0, 0.0])
@@ -58,12 +57,12 @@ class Model:
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: rhs(t, y, self.Q_p1, self.V_c, self.V_p1, self.CL, self.X),
             t_span=[t_eval[0], t_eval[-1]],
-            y0=y0, t_eval=t_eval
-        )
-
+            y0=y0, t_eval=t_eval)
         return sol
 
 
 if __name__ == "__main__":
     model = Model()
-    print(model.solve())
+    solution = model.solve()
+    plot = pk.Solution()
+    plot.plot(solution, "Test")
