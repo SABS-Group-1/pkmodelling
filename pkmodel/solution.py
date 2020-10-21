@@ -39,7 +39,7 @@ class Solution:
         # the peripheral components go [1,last-1) (or [1,last), if there's no subcutaneous compartment)
         # this way we can reuse the code to calculate the transitions of the peripheral compartments
 
-        qi = np.full(self.model.number_of_compartments, y)  # we initialize all concentrations to y
+        qi = y  # we initialize all concentrations to y
         dqi_dt = np.zeros(self.model.number_of_compartments)  # and all derivatives to zero
 
         # we then calculate the transitions for each peripheral compartment
@@ -73,7 +73,6 @@ class Solution:
                 dqi_dt[i] = transitions[i - 1]
 
         return dqi_dt
-
 
     def solve(self):
         """
