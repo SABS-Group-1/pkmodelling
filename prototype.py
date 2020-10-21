@@ -3,6 +3,9 @@ import numpy as np
 import scipy.integrate
 
 
+# This is a test to see if PyCharm is authorised
+
+
 def dose(t, X):
     return X
 
