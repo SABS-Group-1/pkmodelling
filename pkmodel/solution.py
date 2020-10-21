@@ -32,8 +32,20 @@ class Solution:
         :return: derivative of drug concentrations with respect to time
         """
 
+        # we initialize concentrations and derivatives for each compartment
+        # the notation goes as follows:
+        # 0 is the central compartment
+        # if we have a subcutaneous compartment, it goes last
+        # the peripheral components go [1,last-1) (or [1,last), if there's no subcutaneous compartment)
+        # this way we can reuse the code to calculate the transitions of the peripheral compartments
+
         qi = np.full(self.model.number_of_compartments, y)  # we initialize all concentrations to y
         dqi_dt = np.zeros(self.model.number_of_compartments)  # and all derivatives to zero
+
+        # we then calculate the transitions for each peripheral compartment
+        # CAUTION: be aware of the the slightly awkward situation where we loop from
+        # 0 through the parameters of the peripheral compartments, but from 1 through the
+        # concentration array
 
         transitions = np.zeros(self.model.number_of_peripheral_compartments)
         for i in range(0, self.model.number_of_peripheral_compartments):
@@ -41,27 +53,26 @@ class Solution:
                              (qi[0] / self.model.vol_c -
                               qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
 
+        # depending on the model type, we calculate the derivative of the central compartment
+
         if self.model.subcutaneous_compartment:
-            rate_of_absorbtion = self.model.dose - self.model.subcutaneous_compartment \
-                                 * qi[self.model.number_of_compartments-1]
-
-            for i in range(0, self.model.number_of_compartments):
-                if i == 0:
-                    dqi_dt[i] = self.model.dose - qi[i] / self.model.vol_c - np.sum(transitions)
-                elif i == self.model.number_of_compartments - 1:
-                    dqi_dt[i] = rate_of_absorbtion
-                else:
-                    dqi_dt[i] = transitions[i - 1]
-
+            dqi_dt[0] = self.model.subcutaneous_compartment * qi[self.model.number_of_compartments - 1] \
+                        - qi[0] / self.model.vol_c - np.sum(transitions)
         else:
-            for i in range(0, self.model.number_of_compartments):
-                if i == 0:
-                    dqi_dt[i] = self.model.dose - qi[i] / self.model.vol_c - np.sum(transitions)
-                else:
-                    dqi_dt[i] = transitions[i - 1]
+            dqi_dt[0] = self.model.dose - qi[0] / self.model.vol_c - np.sum(transitions)
+
+        # we now set the derivatives of the peripheral compartments as the transitions calculated above
+        # and check whether we have to calculate the last derivative differently, in case of
+        # a subcutaneous model
+
+        for i in range(1, self.model.number_of_compartments):
+            if self.model.subcutaneous_compartment and i == self.model.number_of_compartments-1:
+                dqi_dt[i] = self.model.dose - self.model.subcutaneous_compartment \
+                                 * qi[self.model.number_of_compartments-1]
+            else:
+                dqi_dt[i] = transitions[i - 1]
 
         return dqi_dt
-
 
 
     def solve(self):
@@ -104,6 +115,7 @@ if __name__ == "__main__":
     dummy_model = Model()
     dummy_model.add_peripheral_compartment(2, 4)
     dummy_model.add_peripheral_compartment(1, 5)
+    dummy_model.add_subcutaneous_compartment(2)
     solver = Solution(dummy_model)
     solver.solve()
     solver.plot("Test")
