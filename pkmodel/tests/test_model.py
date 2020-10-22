@@ -53,12 +53,12 @@ class ModelTest(unittest.TestCase):
         test_model = pk.Model()
 
         vol_p, q_p = 10, 20
-        test_model.add_peripheral_compartment(vol_p, q_p)
+        test_model.add_peripheral_compartment(vol_p=vol_p, q_p=q_p)
         assert(test_model.peripheral_compartments[0]["vol_p"] == vol_p)
         assert(test_model.peripheral_compartments[0]["q_p"] == q_p)
 
         vol_p, q_p = 30, 40
-        test_model.add_peripheral_compartment(vol_p, q_p)
+        test_model.add_peripheral_compartment(vol_p=vol_p, q_p=q_p)
         assert(test_model.peripheral_compartments[1]["vol_p"] == vol_p)
         assert(test_model.peripheral_compartments[1]["q_p"] == q_p)
 
@@ -117,9 +117,12 @@ class ModelTest(unittest.TestCase):
         '''
         Test TypeErrors are raised for invalid model params
         '''
+        # __init__ input params
         with self.assertRaises(expected):
             test_model = pk.Model(clearance_rate = input)
         with self.assertRaises(expected):
             test_model = pk.Model(vol_c = input)
         with self.assertRaises(expected):
             test_model = pk.Model(dose = input)
+        
+        # additional model params
