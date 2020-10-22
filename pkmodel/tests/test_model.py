@@ -80,5 +80,16 @@ class ModelTest(unittest.TestCase):
         test_model.add_subcutaneous_compartment(absorption_rate = abs_rate)
         assert(test_model.subcutaneous_compartment == abs_rate)
 
-        
-        
+            
+    def test_cannot_add_more_than_1_sc_compartment(self):
+        '''
+        Adding more than one SC compartment should raise Attribute Error.
+        '''    
+        test_model = pk.Model()
+        assert(test_model.subcutaneous_compartment == None)
+
+        test_model.add_subcutaneous_compartment()
+        assert(test_model.subcutaneous_compartment != None)
+
+        with self.assertRaises(AttributeError):
+            test_model.add_subcutaneous_compartment()
