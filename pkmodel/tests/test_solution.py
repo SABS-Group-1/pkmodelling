@@ -1,15 +1,18 @@
 import unittest
 import pkmodel as pk
+import numpy
 
 
 class SolutionTest(unittest.TestCase):
     """
     Tests the :class:`Solution` class.
     """
-    def test_create(self):
+    def test_central_compartment(self):
         """
-        Tests Solution creation.
+        Tests that system of equations works for a single (central) compartment.
         """
-        model = pk.Solution()
-        self.assertEqual(model.value, 44)
+        solution=pk.Solution(pk.Model())
+        differentials=solution.system_of_equations(1, ([0.]))
+        assert(differentials == ([1.]))
 
+    
