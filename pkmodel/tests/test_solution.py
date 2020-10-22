@@ -1,24 +1,28 @@
 from unittest import TestCase
-from unittest.mock import patch
+import unittest.mock as mock
 import pkmodel as pk
-
+import numpy as np
+from parameterized import parameterized
 
 class SolutionTest(TestCase):
     """
     Tests the :class:`Solution` class.
     """
 
-    def test_worksForBothModels(self):
+    @parameterized.expand([
+        ("negative", np.array([-1, -2]), ValueError)
+    ])
+    def test_initialValuesSolve(self, name, y0, err):
         """
-        Checks whether the pkmodel.solution.Solution.system_of_equation method
-        works for both intravenous and subcutaneous models.
+        Checks whether the pkmodel.solution.Solution.solve method raises an error when
+        calling the function with negative initial values or a negative time span
         :return:
         """
-        with patch.object(pk.Model, 'subcutaneous_compartment') as mock_subcutaneous_model:
+        from pkmodel.solution import Solution
+        from pkmodel.model import Model
 
+        solution = Solution(model=mock.Mock(spec=Model))
 
-
-
-
-
-
+        if err:
+            with self.assertRaises(err):
+                solution.solve(y0=y0)

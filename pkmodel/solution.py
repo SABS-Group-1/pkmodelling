@@ -86,6 +86,9 @@ class Solution:
         if y0 is None:
             y0 = np.zeros(self.model.number_of_compartments)
 
+        if not np.greater(y0, 0.0):
+            raise ValueError("The initial concentration cannot be larger than zero.")
+
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: self.system_of_equations(t, y),
             t_span=[t_eval[0], t_eval[-1]],
@@ -113,6 +116,7 @@ class Solution:
 
 if __name__ == "__main__":
     dummy_model = Model()
+    dummy_model.add_peripheral_compartment()
     solver = Solution(dummy_model)
     solver.solve()
     solver.plot("Test")
