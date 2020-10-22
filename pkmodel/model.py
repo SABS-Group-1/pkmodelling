@@ -20,7 +20,7 @@ class Model:
         self.number_of_compartments = 1
         self.number_of_peripheral_compartments = 0
             
-        if self.clearance_rate < 0 or self.vol_c < 0 or self.dose <0 or self.number_of_compartments < 0 or self.number_of_peripheral_compartments < 0 :
+        if self.clearance_rate <= 0 or self.vol_c <= 0 or self.dose <= 0:
             raise ValueError("Inputted negative number")
 
 
