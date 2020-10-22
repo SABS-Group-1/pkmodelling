@@ -1,6 +1,7 @@
 import unittest
 import pkmodel as pk
 import numpy as np
+from parameterized import parameterized
 
 
 class ModelTest(unittest.TestCase):
@@ -106,4 +107,28 @@ class ModelTest(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             test_model.add_subcutaneous_compartment()
+
+    
+    
+    @parameterized.expand([
+        (-1, ValueError)
+        ])
+    def test_default_values_positivity(self, input, expected):
+        '''
+        Test TypeErrors are raised for invalid model params
+        '''
+        with self.assertRaises(expected):
+            test_model = pk.Model(clearance_rate = input)
+        with self.assertRaises(expected):
+            test_model = pk.Model(vol_c = input)
+        with self.assertRaises(expected):
+            test_model = pk.Model(dose = input)
+        with self.assertRaises(expected):
+            test_model = pk.Model(number_of_compartments = input)
+        with self.assertRaises(expected):
+            test_model = pk.Model(number_of_peripheral_compartments = input)
+    
+        #missing a couple of initial parameters (None and list)
+
+
 
