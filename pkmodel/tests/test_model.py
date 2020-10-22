@@ -80,5 +80,16 @@ class ModelTest(unittest.TestCase):
         test_model.add_subcutaneous_compartment(absorption_rate = abs_rate)
         assert(test_model.subcutaneous_compartment == abs_rate)
 
-        
-        
+    def test_add_subcutaneous_compartments_increases_compartments(self): 
+
+        '''
+        Test add_subcutaneous_compartments adds 1 to object.no_of_peripheral_compartments
+        '''
+        test_model = pk.Model()
+
+        initial_no_of_compartments = test_model.number_of_compartments
+
+        test_model.add_subcutaneous_compartment()
+        assert(test_model.number_of_compartments == initial_no_of_compartments + 1)
+
+    def 
