@@ -27,7 +27,7 @@ class Model:
             self.subcutaneous_compartment = absorption_rate
             self.number_of_compartments += 1
 
-    def add_peripheral_compartment(self, vol_p=1, q_p=1):
+    def add_peripheral_compartment(self, vol_p=1, q_p=1):  
         self.peripheral_compartments.append({"vol_p":vol_p, "q_p": q_p})
         self.number_of_compartments += 1
         self.number_of_peripheral_compartments += 1
