@@ -64,6 +64,7 @@ setup(
         'numpy',
         'matplotlib',
         'scipy',
+        'parameterized'
     ],
     extras_require={
         'docs': [
