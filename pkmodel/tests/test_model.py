@@ -32,7 +32,8 @@ class ModelTest(unittest.TestCase):
 
     def test_add_peripheral_compartments_increases_compartments(self):
         """
-        Tests add_peripheral_compartments adds 1 to object.no_of_peripheral_compartments and object.no_of_compartments
+        Tests add_peripheral_compartments adds 1 to
+        object.no_of_peripheral_compartments and object.no_of_compartments
         """
         test_model = pk.Model()
         initial_compartments = [test_model.number_of_peripheral_compartments,  test_model.number_of_compartments]
@@ -48,26 +49,26 @@ class ModelTest(unittest.TestCase):
 
     def test_vol_and_quantity_peripheral_compartments(self):
         '''
-        Test that the vol & drug quantity in a peripheral compartment are uploaded correctly
+        Test that the vol & drug quantity in
+        a peripheral compartment are uploaded correctly
         '''
         test_model = pk.Model()
 
         vol_p, q_p = 10, 20
-        test_model.add_peripheral_compartment(vol_p, q_p)
+        test_model.add_peripheral_compartment(vol_p=vol_p, q_p=q_p)
         assert(test_model.peripheral_compartments[0]["vol_p"] == vol_p)
         assert(test_model.peripheral_compartments[0]["q_p"] == q_p)
 
         vol_p, q_p = 30, 40
-        test_model.add_peripheral_compartment(vol_p, q_p)
+        test_model.add_peripheral_compartment(vol_p=vol_p, q_p=q_p)
         assert(test_model.peripheral_compartments[1]["vol_p"] == vol_p)
         assert(test_model.peripheral_compartments[1]["q_p"] == q_p)
 
-    def test_subcutaneous_compartment_equals_absorption(self):
 
+    def test_subcutaneous_compartment_equals_absorption(self):
         '''
         Test subcutaneous compartment equals absorption rate
         '''
-
         test_model_default = pk.Model()
         test_model = pk.Model()
 
@@ -83,12 +84,10 @@ class ModelTest(unittest.TestCase):
 
 
     def test_add_subcutaneous_compartments_increases_compartments(self): 
-
         '''
         Test add_subcutaneous_compartments adds 1 to object.no_of_compartments
         '''
         test_model = pk.Model()
-
         initial_no_of_compartments = test_model.number_of_compartments
 
         test_model.add_subcutaneous_compartment()
@@ -118,6 +117,7 @@ class ModelTest(unittest.TestCase):
         '''
         Test TypeErrors are raised for invalid model params
         '''
+        # __init__ input params
         with self.assertRaises(expected):
             test_model = pk.Model(clearance_rate = input)
         with self.assertRaises(expected):
@@ -131,13 +131,8 @@ class ModelTest(unittest.TestCase):
         ])
     def test_default_values_positivity(self, input, expected):
         '''
-        Test TypeErrors are raised for invalid model params
+        Test ValueErrors are raised for invalid model params
         '''
-
-        test_model2 = pk.Model()
-        test_model2.number_of_compartments = -1
-        test_model2.number_of_peripheral_compartments = -1
-
         with self.assertRaises(expected):
             test_model = pk.Model(clearance_rate = input)
         with self.assertRaises(expected):
@@ -152,5 +147,3 @@ class ModelTest(unittest.TestCase):
         #    test_model2.number_of_peripheral_compartments = input
     
         #missing a couple of initial parameters (None and list)
-
-
