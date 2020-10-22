@@ -60,3 +60,25 @@ class ModelTest(unittest.TestCase):
         test_model.add_peripheral_compartment(vol_p, q_p)
         assert(test_model.peripheral_compartments[1]["vol_p"] == vol_p)
         assert(test_model.peripheral_compartments[1]["q_p"] == q_p)
+
+    def test_subcutaneous_compartment_equals_absorption(self):
+
+        '''
+        Test subcutaneous compartment equals absorption rate
+        '''
+
+        test_model_default = pk.Model()
+        test_model = pk.Model()
+
+        assert(test_model.subcutaneous_compartment == None)
+        assert(test_model_default.subcutaneous_compartment == None)
+
+        test_model_default.add_subcutaneous_compartment()
+        assert(test_model_default.subcutaneous_compartment == 1)
+
+        abs_rate = 10
+        test_model.add_subcutaneous_compartment(absorption_rate = abs_rate)
+        assert(test_model.subcutaneous_compartment == abs_rate)
+
+        
+        
