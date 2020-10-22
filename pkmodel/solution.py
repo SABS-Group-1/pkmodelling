@@ -86,7 +86,10 @@ class Solution:
         if y0 is None:
             y0 = np.zeros(self.model.number_of_compartments)
 
-        if not np.greater(y0, 0.0):
+        if not type(y0) == np.ndarray or not y0.dtype == 'float64':
+            raise TypeError("The function only accepts numpy arrays of type float64")
+
+        if not np.all((y0 >= 0.0)):
             raise ValueError("The initial concentration cannot be larger than zero.")
 
         sol = scipy.integrate.solve_ivp(
