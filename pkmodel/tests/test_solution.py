@@ -9,7 +9,6 @@ class SolutionTest(TestCase):
     """
     Tests the :class:`Solution` class.
     """
-
     def test_justCentralCompartment(self):
         """
         Checking whether a solution is calculated when the model is run solely with a central compartment
@@ -153,3 +152,14 @@ class SolutionTest(TestCase):
 
         npt.assert_array_equal(solution.solution.y[1], solution.solution.y[2])
         npt.assert_array_equal(solution.solution.y[2], solution.solution.y[3])
+
+        
+    def test_central_compartment(self):
+        """
+        Tests that system of equations works for a single (central) compartment.
+        """
+        solution=pk.Solution(pk.Model())
+        differentials=solution.system_of_equations(1, ([0.]))
+        assert(differentials == ([1.]))
+
+
