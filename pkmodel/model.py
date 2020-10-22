@@ -24,6 +24,22 @@ class Model:
             raise ValueError("Inputted negative number")
 
 
+        # check model param types
+        if not isinstance(self.clearance_rate, (int,float)):
+            raise TypeError("Clearance rate must be an int or float")
+        if not isinstance(self.vol_c, (int,float)):
+            raise TypeError("Central volume must be an int or float")
+        if not isinstance(self.dose, (int,float)):
+            raise TypeError("Dose must be an int or float")
+        if not (isinstance(self.subcutaneous_compartment, (int,float)) or self.subcutaneous_compartment == None):
+            raise TypeError("Subcutaneous compartment absorption rate must be None, int, or float")
+        if not isinstance(self.peripheral_compartments, list):
+            raise TypeError("Peripheral compartment data must be int the form of a list")
+        if not isinstance(self.number_of_compartments, int):
+            raise TypeError("Total number of compartments must be an int")
+        if not isinstance(self.number_of_peripheral_compartments, int):
+            raise TypeError("Total number of peripheral compartments must be an int")
+
     def add_subcutaneous_compartment(self, absorption_rate=1):
         if self.subcutaneous_compartment:
             raise AttributeError("There can only be one subcutaneous compartment.")

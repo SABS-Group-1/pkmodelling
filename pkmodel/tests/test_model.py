@@ -108,12 +108,13 @@ class ModelTest(unittest.TestCase):
         with self.assertRaises(AttributeError):
             test_model.add_subcutaneous_compartment()
 
-    
-    
+
     @parameterized.expand([
-        (-1, ValueError)
-        ])
-    def test_default_values_positivity(self, input, expected):
+        ([100], TypeError),
+        ("10", TypeError),
+        ])      
+    def test_model_params_valid_type(self, input, expected):
+
         '''
         Test TypeErrors are raised for invalid model params
         '''
@@ -123,12 +124,33 @@ class ModelTest(unittest.TestCase):
             test_model = pk.Model(vol_c = input)
         with self.assertRaises(expected):
             test_model = pk.Model(dose = input)
+
+
+    @parameterized.expand([
+        (-1, ValueError)
+        ])
+    def test_default_values_positivity(self, input, expected):
+        '''
+        Test TypeErrors are raised for invalid model params
+        '''
+
+        test_model2 = pk.Model()
+        test_model2.number_of_compartments = -1
+        test_model2.number_of_peripheral_compartments = -1
+
         with self.assertRaises(expected):
-            test_model = pk.Model(number_of_compartments = input)
+            test_model = pk.Model(clearance_rate = input)
         with self.assertRaises(expected):
-            test_model = pk.Model(number_of_peripheral_compartments = input)
+            test_model = pk.Model(vol_c = input)
+        with self.assertRaises(expected):
+            test_model = pk.Model(dose = input)
+        #with self.assertRaises(expected):
+        #    test_model2 = pk.Model()
+        #    test_model2.number_of_compartments = -1
+        #    test_model2.number_of_compartments = input
+        #with self.assertRaises(expected):
+        #    test_model2.number_of_peripheral_compartments = input
     
         #missing a couple of initial parameters (None and list)
-
 
 
