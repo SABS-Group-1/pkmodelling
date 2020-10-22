@@ -84,7 +84,7 @@ class ModelTest(unittest.TestCase):
     def test_add_subcutaneous_compartments_increases_compartments(self): 
 
         '''
-        Test add_subcutaneous_compartments adds 1 to object.no_of_peripheral_compartments
+        Test add_subcutaneous_compartments adds 1 to object.no_of_compartments
         '''
         test_model = pk.Model()
 
