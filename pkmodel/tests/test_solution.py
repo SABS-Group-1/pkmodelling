@@ -1,15 +1,24 @@
-import unittest
+from unittest import TestCase
+from unittest.mock import patch
 import pkmodel as pk
 
 
-class SolutionTest(unittest.TestCase):
+class SolutionTest(TestCase):
     """
     Tests the :class:`Solution` class.
     """
-    def test_create(self):
+
+    def test_worksForBothModels(self):
         """
-        Tests Solution creation.
+        Checks whether the pkmodel.solution.Solution.system_of_equation method
+        works for both intravenous and subcutaneous models.
+        :return:
         """
-        model = pk.Solution()
-        self.assertEqual(model.value, 44)
+        with patch.object(pk.Model, 'subcutaneous_compartment') as mock_subcutaneous_model:
+
+
+
+
+
+
 
