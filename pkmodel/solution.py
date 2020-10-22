@@ -74,7 +74,7 @@ class Solution:
 
         return dqi_dt
 
-    def solve(self):
+    def solve(self, y0=None, t_eval=np.linspace(0, 1, 1000)):
         """
         Uses the scipy library to solve the initial value problem for the system of
         equations specified in the system_of_equations function,
@@ -82,8 +82,15 @@ class Solution:
 
         :return: scipy bunch object
         """
-        t_eval = np.linspace(0, 1, 10)
-        y0 = np.zeros(self.model.number_of_compartments)
+
+        if y0 is None:
+            y0 = np.zeros(self.model.number_of_compartments)
+
+        if not type(y0) == np.ndarray or not y0.dtype == 'float64':
+            raise TypeError("The function only accepts numpy arrays of type float64")
+
+        if not np.all((y0 >= 0.0)):
+            raise ValueError("The initial concentration cannot be larger than zero.")
 
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: self.system_of_equations(t, y),
@@ -112,9 +119,7 @@ class Solution:
 
 if __name__ == "__main__":
     dummy_model = Model()
-    dummy_model.add_peripheral_compartment(2, 4)
-    dummy_model.add_peripheral_compartment(1, 5)
-    dummy_model.add_subcutaneous_compartment(2)
+    dummy_model.add_peripheral_compartment()
     solver = Solution(dummy_model)
     solver.solve()
     solver.plot("Test")
