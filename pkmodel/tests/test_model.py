@@ -80,7 +80,7 @@ class ModelTest(unittest.TestCase):
         test_model.add_subcutaneous_compartment(absorption_rate = abs_rate)
         assert(test_model.subcutaneous_compartment == abs_rate)
 
-<<<<<<< HEAD
+
     def test_add_subcutaneous_compartments_increases_compartments(self): 
 
         '''
@@ -93,8 +93,6 @@ class ModelTest(unittest.TestCase):
         test_model.add_subcutaneous_compartment()
         assert(test_model.number_of_compartments == initial_no_of_compartments + 1)
 
-    def 
-=======
             
     def test_cannot_add_more_than_1_sc_compartment(self):
         '''
@@ -108,4 +106,4 @@ class ModelTest(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             test_model.add_subcutaneous_compartment()
->>>>>>> cf3799352e9f4bea29bcd7f1db015593839d98a6
+
