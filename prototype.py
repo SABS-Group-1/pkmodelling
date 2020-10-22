@@ -46,7 +46,6 @@ for model in [model1_args, model2_args]:
         t_span=[t_eval[0], t_eval[-1]],
         y0=y0, t_eval=t_eval
     )
-    print(sol.y)
     plt.plot(sol.t, sol.y[0, :], label=model['name'] + '- q_c')
     plt.plot(sol.t, sol.y[1, :], label=model['name'] + '- q_p1')
 
