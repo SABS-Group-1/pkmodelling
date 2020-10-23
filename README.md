@@ -1,7 +1,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/pkmodelling/badge/?version=latest)](https://pkmodelling.readthedocs.io/en/latest/?badge=latest)
 
-![Run unit tests with all supported python versions (3.5-3.8)](https://github.com/SABS-Group-1/pkmodelling/workflows/Run%20unit%20tests%20with%20all%20supported%20python%20versions%20(3.5-3.8)/badge.svg)
+![Run unit tests with all supported python versions (3.6-3.8)](https://github.com/SABS-Group-1/pkmodelling/workflows/Run%20unit%20tests%20with%20all%20supported%20python%20versions%20(3.6-3.8)/badge.svg)
 
 ![Unit tests (OS versions)](https://github.com/SABS-Group-1/pkmodelling/workflows/Unit%20tests%20(OS%20versions)/badge.svg)
 
