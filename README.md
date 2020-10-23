@@ -6,15 +6,14 @@
 
 # PK Modelling (SABS 2020 Group 1)
 
-This is a package allowing a user to run simply PK model for both:
+This is a package allowing a user to run a simple PK model for both:
 - Intravenous Bolus dosing (dose administered to a central compartment)
 - Subcutaneous dosing (dose administered to a separate compartment from which it is absorbed into the central one)
 
 ## Installing the package
 
-The latest release of PINTS can be installed without downloading (cloning) the git repository, by opening a console and typing:
+The latest release of the package can be installed without downloading (cloning) the git repository, by opening a console and typing:
 ```
-$ pip install --upgrade pip
-$ pip install pkmodelling-sabs-group1
+$ pip install -i https://test.pypi.org/simple/ pkmodelling-sabs-group1
 ```
 Note that you should be using Python version 3.6+
