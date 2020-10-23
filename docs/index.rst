@@ -16,6 +16,9 @@ Welcome to PKModelling's documentation!
 .. automodule:: solution
    :members:
 
+.. automodule:: protocol
+   :members:
+
 
 
    
