@@ -103,11 +103,14 @@ class SolutionTest(TestCase):
         """
         from pkmodel.model import Model
         from pkmodel.solution import Solution
+        from pkmodel.protocol import Protocol
 
-        model = Model(clearance_rate=CL, vol_c=V_c, dose=X)
+        protocol = Protocol()
+        protocol.make_continuous(0, 4)
+        model = Model(clearance_rate=CL, vol_c=V_c)
         model.add_peripheral_compartment(vol_p=V_p1, q_p=Q_p1)
 
-        solution = Solution(model)
+        solution = Solution(model, protocol)
         solution.solve(y0=np.array([0.0, 0.0]), t_eval=np.linspace(0, 1, 5))
 
         npt.assert_almost_equal(solution.solution.y[0], result_c, decimal=2)
@@ -150,15 +153,3 @@ class SolutionTest(TestCase):
 
         npt.assert_array_equal(solution.solution.y[1], solution.solution.y[2])
         npt.assert_array_equal(solution.solution.y[2], solution.solution.y[3])
-
-    def test_central_compartment(self):
-        """
-        Tests that system of equations works for a single (central) compartment.
-        """
-
-        from pkmodel.model import Model
-        from pkmodel.solution import Solution
-
-        solution = Solution(Model())
-        differentials = solution.system_of_equations(1, ([0.]))
-        assert(differentials == ([1.]))

@@ -5,6 +5,8 @@
 import matplotlib.pylab as plt
 import numpy as np
 import scipy.integrate
+from pkmodel.model import Model
+from pkmodel.protocol import Protocol
 
 
 class Solution:
@@ -12,7 +14,7 @@ class Solution:
     either returning a plot or arrays of the drug concentrations over time
     """
 
-    def __init__(self, model, protocol):
+    def __init__(self, model=Model(), protocol=Protocol()):
         """
 
         :param model: model object containing all relevant initial values
