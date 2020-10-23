@@ -10,6 +10,10 @@ Welcome to PKModelling's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. automodule:: model
+   :members
+   
+
    quickstart
 
 PKModelling text
