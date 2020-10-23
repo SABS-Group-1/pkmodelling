@@ -81,7 +81,7 @@ class Solution:
 
         return dqi_dt
 
-    def solve(self, y0=None, t_eval=np.linspace(0, 1, 1000)):
+    def solve(self, y0=None, t_eval=None):
         """
         Uses the scipy library to solve the initial value problem for the system of
         equations specified in the system_of_equations function,
@@ -92,6 +92,9 @@ class Solution:
 
         if y0 is None:
             y0 = np.zeros(self.model.number_of_compartments)
+
+        if t_eval is None:
+            t_eval = np.linspace(0, 1, 1000)
 
         if not type(y0) == np.ndarray or not y0.dtype == 'float64':
             raise TypeError("The function only accepts numpy arrays of type float64")
