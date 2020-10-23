@@ -10,13 +10,13 @@ Welcome to PKModelling's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   quickstart
+.. automodule:: model
+   :members:
 
 .. automodule:: solution
    :members:
 
-.. automodule:: model
-   :members:
+
 
    
 
