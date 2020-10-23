@@ -40,12 +40,12 @@ model = pk.model.Model(clearance_rate=1, vol_c=1, dose=1)
 ```
 
 You are then able to add one subcutaneous 
-and arbitrarily many peripheral compartments.
+and/or arbitrarily many peripheral compartments.
 
 ```
+model.add_subcutaneous_compartment(absorption_rate=2)
 model.add_peripheral_compartment(pc_name="Compartment 1", vol_p=2, q_p=3)
 model.add_peripheral_compartment(pc_name="Compartment 2", vol_p=4, q_p=5)
-model.add_subcutaneous_compartment(absorption_rate=2)
 ```
 
 In order to solve the model you specified above, you initialise a
