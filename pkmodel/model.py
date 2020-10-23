@@ -8,13 +8,13 @@ class Model:
     Adding subcutaneous compartment changes model type
     """
 
-    def __init__(self, clearance_rate=1, vol_c=1, dose=1):
-        """Initialise model object param values
+    def __init__(self, clearance_rate=1, vol_c=1):
+        """
+        Initialise model object param values
 
         :param clearance_rate: int/float describing drug elim rate
                                from central compartment [ml/h]
         :param vol_c: int/float describing volume of central compartment [ml]
-        :param dose: int/float dosing function [ng/h]
         :arg subcutaenous_compartment: int/float describes absorption rate [/h]
                                        Assume IVB model so defaults to None
         :arg peripheral_compartments: initialised as empty list
@@ -25,14 +25,13 @@ class Model:
         """
         self.clearance_rate = clearance_rate
         self.vol_c = vol_c
-        self.dose = dose
         self.subcutaneous_compartment = None
         self.peripheral_compartments = []
         self.number_of_compartments = 1
         self.number_of_peripheral_compartments = 0
 
         # check model param values are physically valid
-        if self.clearance_rate <= 0 or self.vol_c <= 0 or self.dose <= 0:
+        if self.clearance_rate <= 0 or self.vol_c <= 0:
             raise ValueError("Inputted negative number")
 
         # check model param types
@@ -40,8 +39,6 @@ class Model:
             raise TypeError("Clearance rate must be an int or float")
         if not isinstance(self.vol_c, (int, float)):
             raise TypeError("Central volume must be an int or float")
-        if not isinstance(self.dose, (int, float)):
-            raise TypeError("Dose must be an int or float")
         if not (isinstance(self.subcutaneous_compartment, (int, float))
                 or self.subcutaneous_compartment is None):
             raise TypeError("SC compart. abs. rate must be None, int or float")

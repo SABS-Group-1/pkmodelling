@@ -5,6 +5,8 @@
 import matplotlib.pylab as plt
 import numpy as np
 import scipy.integrate
+from pkmodel.model import Model
+from pkmodel.protocol import Protocol
 
 
 class Solution:
@@ -12,13 +14,14 @@ class Solution:
     either returning a plot or arrays of the drug concentrations over time.
     """
 
-    def __init__(self, model):
+    def __init__(self, model=Model(), protocol=Protocol()):
         """
 
         :param model: model object containing all relevant initial values
         :arg solution: serves as the variable to which solutions are saved
         """
         self.model = model
+        self.protocol = protocol
         self.solution = None
 
     def system_of_equations(self, t, y):
@@ -61,7 +64,7 @@ class Solution:
                 - qi[0] / self.model.vol_c - np.sum(transitions)
             )
         else:
-            dqi_dt[0] = self.model.dose - qi[0] / self.model.vol_c - np.sum(transitions)
+            dqi_dt[0] = self.protocol.dose_at_time(t) - qi[0] / self.model.vol_c - np.sum(transitions)
 
         # we now set the derivatives of the peripheral compartments as the transitions calculated above
         # and check whether we have to calculate the last derivative differently, in case of
@@ -70,7 +73,7 @@ class Solution:
         for i in range(1, self.model.number_of_compartments):
             if self.model.subcutaneous_compartment and i == self.model.number_of_compartments - 1:
                 dqi_dt[i] = (
-                    self.model.dose - self.model.subcutaneous_compartment
+                    self.protocol.dose_at_time(t) - self.model.subcutaneous_compartment
                     * qi[self.model.number_of_compartments - 1]
                 )
             else:
