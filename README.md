@@ -24,7 +24,7 @@ the models are described by the following systems of equations.
 
  intravenous dosing              |  subcutaneous dosing
 :-------------------------:|:-------------------------:
-![image](https://github.com/SABS-Group-1/pkmodelling/blob/master/docs/pictures/iv_ODE.png)  |  ![image](docs/pictures/sc_ODE.png)
+![image](https://github.com/SABS-Group-1/pkmodelling/blob/master/docs/pictures/iv_ODE.png)  |  ![image](https://github.com/SABS-Group-1/pkmodelling/blob/readme_image_url/docs/pictures/sc_ODE.png)
 
 The case for more than one peripheral compartment is calculated accordingly.
 
