@@ -13,7 +13,7 @@ This is a package that allows the user to calculate drug pharmacokinetics for tw
 ## Modelling Assumptions
 
 For both of the above-mentioned models, 
-we assume that the organism can be divided in kinetically homogeneous compartments.
+we assume that the organism can be divided into kinetically homogeneous compartments.
 After the drug enters the central compartment (either by direct infusion or through the 
 subcutaneous compartment), it is both cleared at a constant rate and
 diffuses into an arbitrary number of peripheral compartments. This is meant to model the 
@@ -34,12 +34,12 @@ The latest release of the package can be installed directly through by opening a
 ```
 $ pip3 install -i https://test.pypi.org/simple/ pkmodelling-sabs-group1
 ```
-The model is maintained for python 3.6 and newer.
+The package is maintained for python 3.6 and newer.
 
 ## Using the Package
 
 When initialising the Model class, the package creates a model
-that consists solely of the central compartment. Note that in this version
+that consists solely of the central compartment. Note that in this version,
 the dose is only implemented as a constant addition at every time step.
 
 ``` 
@@ -59,7 +59,7 @@ model.add_peripheral_compartment(pc_name="Compartment 2", vol_p=4, q_p=5)
 
 In order to solve the model you specified above, you initialise a
 Solution class and run the solve method. The standard initial values are 0 for the drug 
-concentration in each compartment and a timespan of [0,1) divided into 1000 time steps.
+concentrations in all compartments and a timespan of [0,1), divided into 1000 time steps.
 
 ```
 sol = pk.solution.Solution(model=model)
