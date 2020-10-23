@@ -56,31 +56,24 @@ model.add_subcutaneous_compartment(absorption_rate=2.0)
 model.add_peripheral_compartment(pc_name="Compartment 1", vol_p=2.0, q_p=3.0)
 model.add_peripheral_compartment(pc_name="Compartment 2", vol_p=4.0, q_p=5.0)
 ```
+
 You are then able to specify a dosing protocol that can be either
 - A number of instantaneous does at specific times
 - A steady dose over a given period of time
 - A combination of the above
+
+```
+protocol = pk.protocol.Protocol(dose_amount=1)
+protocol.make_continuous(time_start=0, time_finish=0.5)
+```
 
 In order to solve the model you specified above, you initialise a
 Solution class that takes both the model and dosing protocol as parameters
 and then run the solve method. The standard initial values are 0 for the drug 
 concentrations in all compartments and a timespan of 1hr, divided into 1000 time steps.
 
-An demo of a subcutaneous model can be found in the **demo.py** script.
-
 ```
-import pkmodel as pk # if the package is downloaded directly
-
-protocol = pk.protocol.Protocol(dose_amount=1)
-protocol.make_continuous(time_start=0, time_finish=0.5)
-
-model = pk.model.Model(clearance_rate=1, vol_c=1)
-model.add_subcutaneous_compartment(absorption_rate=2)  # needed if the dosing protocol is subcutaneous
-model.add_peripheral_compartment(pc_name="Compartment 1", vol_p=2, q_p=3)  # adds a peripheral compartment
-model.add_peripheral_compartment()
-
 sol = pk.solution.Solution(model=model, protocol=protocol)
-sol.solve()
 ```
 
 You are then able to generate a plot that shows you the change in drug concentration
@@ -89,3 +82,5 @@ for each compartment over time.
 ```
 sol.plot("MyModel")
 ```
+
+A demo of a subcutaneous model can be found in the **demo.py** script.
