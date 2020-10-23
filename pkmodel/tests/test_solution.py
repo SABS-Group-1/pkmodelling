@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock, patch
+from unittest.mock import MagicMock
 import numpy as np
 import numpy.testing as npt
 from parameterized import parameterized
@@ -48,11 +48,10 @@ class SolutionTest(TestCase):
 
         model = Model()
         model.add_subcutaneous_compartment()
-        for _ in range(0,5):
+        for _ in range(0, 5):
             model.add_peripheral_compartment()
         solution = Solution(model)
         solution.solve()
-
 
     @parameterized.expand([
         ('zero', np.array([0.0, 0.0]), None),
@@ -114,7 +113,6 @@ class SolutionTest(TestCase):
         npt.assert_almost_equal(solution.solution.y[0], result_c, decimal=2)
         npt.assert_almost_equal(solution.solution.y[1], result_p, decimal=2)
 
-
     @parameterized.expand([
         (1, 1), (2, 1), (1, 2)
     ])
@@ -153,13 +151,12 @@ class SolutionTest(TestCase):
         npt.assert_array_equal(solution.solution.y[1], solution.solution.y[2])
         npt.assert_array_equal(solution.solution.y[2], solution.solution.y[3])
 
-        
     def test_central_compartment(self):
         """
         Tests that system of equations works for a single (central) compartment.
         """
-        solution=pk.Solution(pk.Model())
-        differentials=solution.system_of_equations(1, ([0.]))
+        solution = pk.Solution(pk.Model())
+        differentials = solution.system_of_equations(1, ([0.]))
         assert(differentials == ([1.]))
 
 
