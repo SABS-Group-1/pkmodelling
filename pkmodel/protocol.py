@@ -37,7 +37,7 @@ class Protocol:
         self.continuous_period = continuous_period
         self.dose_times.sort()
 
-    def make_continuous(self,time_start, time_finish):
+    def make_continuous(self, time_start, time_finish):
         """
         Paramater: time_start: The time that at which continuous dosing
         starts.
@@ -49,7 +49,7 @@ class Protocol:
         self.continuous = True
         self.continuous_period[0] = time_start
         self.continuous_period[1] = time_finish
-    
+
     def add_instantaneous(self, time):
         """
         Paramater: time: Additional time at which there will be added an
@@ -59,7 +59,7 @@ class Protocol:
         """
         self.dose_times.append(time)
         self.dose_times.sort()
-    
+
     def change_dose(self, dose_amount):
         """
         Paramater: dose_amount: The dosage given - X ng
@@ -67,7 +67,7 @@ class Protocol:
         class it is called on.
         """
         self.dose_amount = dose_amount
-    
+
     def dose_at_time(self, t):
         """
         Paramater: t: time at which you want dose(t) to be returned.
@@ -86,6 +86,3 @@ class Protocol:
 
         dose_t = dose_t_continuous + dose_t_instantaneous
         return dose_t
-
-
-
