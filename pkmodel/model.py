@@ -5,13 +5,23 @@
 class Model:
     """A Pharmokinetic (PK) model
 
-    Parameters: specifying the model type
-    ----------
-    value: numeric, optional
-        an example paramter
+    Defaults to Intravenous Bolus
+    Adding subcutaneous compartment changes model type
     """
 
     def __init__(self, clearance_rate=1, vol_c=1, dose=1):
+        """
+        Initialise model object param values
+
+        :param clearance_rate: int/float describing drug elimination rate from central compartment [ml/h]
+        :param vol_c: int/float describing volume of central compartment [ml]
+        :param dose: int/float dosing function [ng/h]
+        :arg subcutaenous_compartment: int/float describing absortion rate for SC dosing [/h]. Assume IVB model so defaults to None
+        :arg peripheral_compartments: initialised as empty list
+        :arg number_of_compartments: int initialised to 1 for central compartment only
+        :arg number_of_peripheral_compartments: int initialised to 0
+        :return: ---
+        """
         self.clearance_rate = clearance_rate
         self.vol_c = vol_c
         self.dose = dose
@@ -19,10 +29,10 @@ class Model:
         self.peripheral_compartments = []
         self.number_of_compartments = 1
         self.number_of_peripheral_compartments = 0
-            
+
+        # check model param values are physically valid 
         if self.clearance_rate <= 0 or self.vol_c <= 0 or self.dose <= 0:
             raise ValueError("Inputted negative number")
-
 
         # check model param types
         if not isinstance(self.clearance_rate, (int,float)):
@@ -41,6 +51,12 @@ class Model:
             raise TypeError("Total number of peripheral compartments must be an int")
 
     def add_subcutaneous_compartment(self, absorption_rate=1):
+        '''
+        Adds subcutaneous compartment to model with absorption rate specified
+
+        :param absorption_rate: int/float describing absortion rate for SC dosing [/h]
+        :return: ---
+        '''
         if self.subcutaneous_compartment:
             raise AttributeError("There can only be one subcutaneous compartment.")
         else:
@@ -48,6 +64,14 @@ class Model:
             self.number_of_compartments += 1
 
     def add_peripheral_compartment(self, pc_name = None, vol_p=1, q_p=1):
+        '''
+        Adds peripheral compartment to model
+        Valid for both IVB and SC
+
+        :param vol_p: int/float describing volume of per comp [ml]
+        :param q_p: int/float describing drug quantiyin  per comp [ng]
+        :return: ---
+        '''
         if not pc_name:
             pc_name = "Peripheral Compartment {}".format(self.number_of_peripheral_compartments + 1)
         self.peripheral_compartments.append({"name": pc_name, "vol_p":vol_p, "q_p": q_p})
