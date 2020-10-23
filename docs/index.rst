@@ -15,7 +15,7 @@ Welcome to PKModelling's documentation!
 .. automodule:: solution
    :members:
 
-.. autoclass:: model
+.. automodule:: model
    :members:
 
    
