@@ -1,5 +1,4 @@
 Quickstart
-
-###############
+==========
 
 Checking Quickstart works
