@@ -18,8 +18,7 @@ class ModelTest(unittest.TestCase):
                           "subcutaneous_compartment": None,
                           "peripheral_compartments": [],
                           "number_of_compartments": 1,
-                          "number_of_peripheral_compartments": 0
-                         }
+                          "number_of_peripheral_compartments": 0}
         assert(test_model.clearance_rate == default_values["clearance_rate"])
         assert(test_model.vol_c == default_values["vol_c"])
         assert(test_model.dose == default_values["dose"])
@@ -103,19 +102,18 @@ class ModelTest(unittest.TestCase):
 
     @parameterized.expand([
         ([100], TypeError),
-        ("10", TypeError),
-        ])
+        ("10", TypeError)])
     def test_model_params_valid_type(self, input, expected):
         '''
         Test TypeErrors are raised for invalid model params
         '''
         # __init__ input params
         with self.assertRaises(expected):
-            test_model = pk.Model(clearance_rate=input)
+            pk.Model(clearance_rate=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(vol_c=input)
+            pk.Model(vol_c=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(dose=input)
+            pk.Model(dose=input)
 
     @parameterized.expand([
                           (-1, ValueError)
@@ -125,8 +123,8 @@ class ModelTest(unittest.TestCase):
         Test ValueErrors are raised for invalid model params
         '''
         with self.assertRaises(expected):
-            test_model = pk.Model(clearance_rate=input)
+            pk.Model(clearance_rate=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(vol_c=input)
+            pk.Model(vol_c=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(dose=input)
+            pk.Model(dose=input)
