@@ -1,5 +1,5 @@
 # import pkmodelling_sabs_group1 as pk  # if the package is installed through pip
-import pkmodel as pk # if the package is downloaded directly
+import pkmodel as pk  # if the package is downloaded directly
 
 # introduces a continuous dose of 1 for the first half of the
 # simulated time
