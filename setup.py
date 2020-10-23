@@ -42,7 +42,7 @@ setup(
     description='An example Python project.',
 
     long_description=get_readme(),
-    
+   
     long_description_content_type="text/markdown",
 
     license='MIT license',
