@@ -66,7 +66,7 @@ class Protocol:
         This method modfies the dose_amount parameter in the object of protocol
         class it is called on.
         """
-        self.dose_amount = dose.amount
+        self.dose_amount = dose_amount
     
     def dose_at_time(self, t):
         """
