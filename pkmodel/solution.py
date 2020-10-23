@@ -119,11 +119,3 @@ class Solution:
         plt.ylabel('drug mass [ng]')
         plt.xlabel('time [h]')
         plt.show()
-
-
-if __name__ == "__main__":
-    dummy_model = Model()
-    dummy_model.add_peripheral_compartment()
-    solver = Solution(dummy_model)
-    solver.solve()
-    solver.plot("Test")
