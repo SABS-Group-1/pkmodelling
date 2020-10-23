@@ -62,7 +62,7 @@ setup(
     install_requires=[
         # Dependencies go here!
         'numpy',
-        'matplotlib',
+        'matplotlib.pylab',
         'scipy',
         'parameterized'
     ],
