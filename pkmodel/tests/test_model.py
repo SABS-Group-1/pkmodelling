@@ -18,8 +18,7 @@ class ModelTest(unittest.TestCase):
                           "subcutaneous_compartment": None,
                           "peripheral_compartments": [],
                           "number_of_compartments": 1,
-                          "number_of_peripheral_compartments": 0
-                         }
+                          "number_of_peripheral_compartments": 0}
         assert(test_model.clearance_rate == default_values["clearance_rate"])
         assert(test_model.vol_c == default_values["vol_c"])
         assert(test_model.dose == default_values["dose"])
@@ -34,15 +33,15 @@ class ModelTest(unittest.TestCase):
         object.no_of_peripheral_compartments and object.no_of_compartments
         """
         test_model = pk.Model()
-        initial_compartments = [test_model.number_of_peripheral_compartments,  test_model.number_of_compartments]
+        initial_compartments = [test_model.number_of_peripheral_compartments, test_model.number_of_compartments]
         assert(len(test_model.peripheral_compartments) == test_model.number_of_peripheral_compartments)
 
         test_model.add_peripheral_compartment()
-        new_compartments = [test_model.number_of_peripheral_compartments,  test_model.number_of_compartments]
+        new_compartments = [test_model.number_of_peripheral_compartments, test_model.number_of_compartments]
         assert(len(test_model.peripheral_compartments) == test_model.number_of_peripheral_compartments)
 
-        for i in range(len(initial_compartments)): 
-            assert(new_compartments[i] == initial_compartments[i] +1)
+        for i in range(len(initial_compartments)):
+            assert(new_compartments[i] == initial_compartments[i] + 1)
 
     def test_vol_and_quantity_peripheral_compartments(self):
         '''
@@ -68,17 +67,17 @@ class ModelTest(unittest.TestCase):
         test_model_default = pk.Model()
         test_model = pk.Model()
 
-        assert(test_model.subcutaneous_compartment == None)
-        assert(test_model_default.subcutaneous_compartment == None)
+        assert(test_model.subcutaneous_compartment is None)
+        assert(test_model_default.subcutaneous_compartment is None)
 
         test_model_default.add_subcutaneous_compartment()
         assert(test_model_default.subcutaneous_compartment == 1)
 
         abs_rate = 10
-        test_model.add_subcutaneous_compartment(absorption_rate = abs_rate)
+        test_model.add_subcutaneous_compartment(absorption_rate=abs_rate)
         assert(test_model.subcutaneous_compartment == abs_rate)
 
-    def test_add_subcutaneous_compartments_increases_compartments(self): 
+    def test_add_subcutaneous_compartments_increases_compartments(self):
         '''
         Test add_subcutaneous_compartments adds 1 to object.no_of_compartments
         '''
@@ -87,36 +86,34 @@ class ModelTest(unittest.TestCase):
 
         test_model.add_subcutaneous_compartment()
         assert(test_model.number_of_compartments == initial_no_of_compartments + 1)
-            
+
     def test_cannot_add_more_than_1_sc_compartment(self):
         '''
         Adding more than one SC compartment should raise Attribute Error.
-        '''    
+        '''
         test_model = pk.Model()
-        assert(test_model.subcutaneous_compartment == None)
+        assert(test_model.subcutaneous_compartment is None)
 
         test_model.add_subcutaneous_compartment()
-        assert(test_model.subcutaneous_compartment != None)
+        assert(test_model.subcutaneous_compartment is not None)
 
         with self.assertRaises(AttributeError):
             test_model.add_subcutaneous_compartment()
 
     @parameterized.expand([
         ([100], TypeError),
-        ("10", TypeError),
-        ])      
+        ("10", TypeError)])
     def test_model_params_valid_type(self, input, expected):
-
         '''
         Test TypeErrors are raised for invalid model params
         '''
         # __init__ input params
         with self.assertRaises(expected):
-            test_model = pk.Model(clearance_rate = input)
+            pk.Model(clearance_rate=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(vol_c = input)
+            pk.Model(vol_c=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(dose = input)
+            pk.Model(dose=input)
 
     @parameterized.expand([
                           (-1, ValueError)
@@ -126,15 +123,8 @@ class ModelTest(unittest.TestCase):
         Test ValueErrors are raised for invalid model params
         '''
         with self.assertRaises(expected):
-            test_model = pk.Model(clearance_rate=input)
+            pk.Model(clearance_rate=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(vol_c=input)
+            pk.Model(vol_c=input)
         with self.assertRaises(expected):
-            test_model = pk.Model(dose=input)
-        #with self.assertRaises(expected):
-        #    test_model2 = pk.Model()
-        #    test_model2.number_of_compartments = -1
-        #    test_model2.number_of_compartments = input
-        #with self.assertRaises(expected):
-        #    test_model2.number_of_peripheral_compartments = input
-        #missing a couple of initial parameters (None and list)
+            pk.Model(dose=input)
