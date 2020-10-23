@@ -12,7 +12,10 @@ Welcome to PKModelling's documentation!
 
    quickstart
 
-.. automodule:: model
+.. automodule:: solution
+   :members:
+
+.. autoclass:: model
    :members:
 
    
