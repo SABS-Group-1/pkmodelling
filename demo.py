@@ -1,7 +1,10 @@
 # import pkmodelling_sabs_group1 as pk  # if the package is installed through pip
 import pkmodel as pk # if the package is downloaded directly
 
-protocol = pk.protocol.Protocol()
+# introduces a continuous dose of 1 for the first half of the
+# simulated time
+
+protocol = pk.protocol.Protocol(dose_amount=1)
 protocol.make_continuous(time_start=0, time_finish=0.5)
 
 
