@@ -10,8 +10,7 @@ class Model:
     """
 
     def __init__(self, clearance_rate=1, vol_c=1, dose=1):
-        """
-        Initialise model object param values
+        """Initialise model object param values
 
         :param clearance_rate: int/float describing drug elim rate
                                from central compartment [ml/h]
@@ -55,8 +54,7 @@ class Model:
             raise TypeError("Total no. of peripheral compartments must be int")
 
     def add_subcutaneous_compartment(self, absorption_rate=1):
-        '''
-        Adds subcutaneous compartment to model with absorption rate specified
+        '''Adds subcutaneous compartment to model with absorption rate specified
 
         :param absorption_rate: int/float describing absorp. rate for SC [/h]
         :return: ---
@@ -68,8 +66,7 @@ class Model:
             self.number_of_compartments += 1
 
     def add_peripheral_compartment(self, pc_name=None, vol_p=1, q_p=1):
-        '''
-        Adds peripheral compartment to model
+        '''Adds peripheral compartment to model
         Valid for both IVB and SC
 
         :param vol_p: int/float describing volume of per comp [ml]
