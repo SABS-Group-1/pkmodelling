@@ -155,11 +155,10 @@ class SolutionTest(TestCase):
         """
         Tests that system of equations works for a single (central) compartment.
         """
-        
+
         from pkmodel.model import Model
         from pkmodel.solution import Solution
-        
+
         solution = Solution(Model())
         differentials = solution.system_of_equations(1, ([0.]))
         assert(differentials == ([1.]))
-
