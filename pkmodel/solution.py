@@ -49,15 +49,18 @@ class Solution:
 
         transitions = np.zeros(self.model.number_of_peripheral_compartments)
         for i in range(0, self.model.number_of_peripheral_compartments):
-            transitions[i] = self.model.peripheral_compartments[i]['q_p'] * \
-                             (qi[0] / self.model.vol_c -
-                              qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
+            transitions[i] = (
+                    self.model.peripheral_compartments[i]['q_p'] * \
+                    (qi[0] / self.model.vol_c - qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
+            )
 
         # depending on the model type, we calculate the derivative of the central compartment
 
         if self.model.subcutaneous_compartment:
-            dqi_dt[0] = self.model.subcutaneous_compartment * qi[self.model.number_of_compartments - 1] \
-                        - qi[0] / self.model.vol_c - np.sum(transitions)
+            dqi_dt[0] = (
+                    self.model.subcutaneous_compartment * qi[self.model.number_of_compartments - 1] \
+                    - qi[0] / self.model.vol_c - np.sum(transitions)
+            )
         else:
             dqi_dt[0] = self.model.dose - qi[0] / self.model.vol_c - np.sum(transitions)
 
@@ -66,9 +69,11 @@ class Solution:
         # a subcutaneous model
 
         for i in range(1, self.model.number_of_compartments):
-            if self.model.subcutaneous_compartment and i == self.model.number_of_compartments-1:
-                dqi_dt[i] = self.model.dose - self.model.subcutaneous_compartment \
-                                 * qi[self.model.number_of_compartments-1]
+            if self.model.subcutaneous_compartment and i == self.model.number_of_compartments - 1:
+                dqi_dt[i] = (
+                        self.model.dose - self.model.subcutaneous_compartment \
+                        * qi[self.model.number_of_compartments - 1]
+                )
             else:
                 dqi_dt[i] = transitions[i - 1]
 
@@ -103,7 +108,6 @@ class Solution:
         """
         Plots the concentrations in the different compartments over time
 
-        :param sol: the bunch object returned by the scipy ODE solver
         :param name: the name of the model in question, e.g. IV, 2 peripheral compartments
         :return: ---
         """
