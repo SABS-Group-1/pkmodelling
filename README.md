@@ -84,3 +84,10 @@ sol.plot("MyModel")
 ```
 
 A demo of a subcutaneous model can be found in the **demo.py** script.
+
+## Useful links
+
+- Project description - https://sabs-r3.github.io/2020-software-engineering-projects/01-introduction/index.html
+- GitHub repo - https://github.com/SABS-Group-1/pkmodelling
+- TestPyPI - https://test.pypi.org/project/pkmodelling-sabs-group1/
+- ReadTheDoc - https://readthedocs.org/projects/pkmodelling/
