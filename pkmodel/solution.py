@@ -50,8 +50,8 @@ class Solution:
         transitions = np.zeros(self.model.number_of_peripheral_compartments)
         for i in range(0, self.model.number_of_peripheral_compartments):
             transitions[i] = (
-                self.model.peripheral_compartments[i]['q_p'] *
-                (qi[0] / self.model.vol_c - qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
+                self.model.peripheral_compartments[i]['q_p']
+                * (qi[0] / self.model.vol_c - qi[i + 1] / self.model.peripheral_compartments[i]['vol_p'])
             )
 
         # depending on the model type, we calculate the derivative of the central compartment
@@ -111,7 +111,7 @@ class Solution:
         :param name: the name of the model in question, e.g. IV, 2 peripheral compartments
         :return: ---
         """
-        fig = plt.figure()
+        _ = plt.figure()
 
         for i in range(0, self.solution.y.shape[0]):
             plt.plot(self.solution.t, self.solution.y[i, :], label=name + "- cmpt" + str(i))
