@@ -163,4 +163,3 @@ class SolutionTest(TestCase):
         differentials = solution.system_of_equations(1, ([0.]))
         assert(differentials == ([1.]))
 
-
