@@ -83,16 +83,3 @@ class Model:
             {"name": pc_name, "vol_p": vol_p, "q_p": q_p})
         self.number_of_compartments += 1
         self.number_of_peripheral_compartments += 1
-
-
-if __name__ == "__main__":
-    model = Model()
-    model.add_peripheral_compartment('per comp 1', 11, 12)
-    model.add_peripheral_compartment('some cell', 21, 22)
-    model.add_peripheral_compartment()
-    for i in range(model.number_of_peripheral_compartments):
-        print("{}\t|\t vol: {}\t|\t drug quant: {}".format(
-            model.peripheral_compartments[i]["name"],
-            model.peripheral_compartments[i]["vol_p"],
-            model.peripheral_compartments[i]["q_p"]))
-    print(model.peripheral_compartments)
