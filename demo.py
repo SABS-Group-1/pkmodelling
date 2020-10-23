@@ -1,4 +1,4 @@
-import pkmodelling_sabs_group1 as pk # if the package is installed through pip
+import pkmodelling_sabs_group1 as pk  # if the package is installed through pip
 # import pkmodel as pk # if the package is downloaded directly
 
 model = pk.model.Model(clearance_rate=1, vol_c=1, dose=1)
