@@ -19,6 +19,15 @@ subcutaneous compartment), it is both cleared at a constant rate and
 diffuses into an arbitrary number of peripheral compartments. This is meant to model the 
 circulatory concentration of a drug to check whether it exceeds certain toxicity and efficacy thresholds.
 
+In the case of a simple instance with only one peripheral compartment,
+the models are described by the following systems of equations.
+
+ intravenous dosing              |  subcutaneous dosing
+:-------------------------:|:-------------------------:
+![image](docs/pictures/iv_ODE.png)  |  ![image](docs/pictures/sc_ODE.png)
+
+The case for more than one peripheral compartment is calculated accordingly.
+
 ## Installing the Package
 
 The latest release of the package can be installed directly through by opening a console and typing:
