@@ -11,8 +11,7 @@ Welcome to PKModelling's documentation!
    :caption: Contents:
 
 .. automodule:: model
-   :members
-   
+   :members:
 
    quickstart
 
