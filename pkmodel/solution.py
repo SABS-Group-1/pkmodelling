@@ -11,7 +11,7 @@ from pkmodel.protocol import Protocol
 
 class Solution:
     """Accepts a pharmacokinetic model and solves it,
-    either returning a plot or arrays of the drug concentrations over time
+    either returning a plot or arrays of the drug concentrations over time.
     """
 
     def __init__(self, model=Model(), protocol=Protocol()):
@@ -27,7 +27,7 @@ class Solution:
     def system_of_equations(self, t, y):
         """
         Implements the algebraic ODE formula from the project description in python
-        and evaluates it at a specific time point
+        and evaluates it at a specific time point.
 
         :param t: point in time, only relevant if you have a continuous dosing protocol
         :param y: value from which the ODE expression is calculated
@@ -85,7 +85,7 @@ class Solution:
         """
         Uses the scipy library to solve the initial value problem for the system of
         equations specified in the system_of_equations function,
-        (we currently assume that the initial drug concentrations are zero)
+        (we currently assume that the initial drug concentrations are zero).
 
         :return: scipy bunch object
         """
@@ -108,7 +108,7 @@ class Solution:
 
     def plot(self, name):
         """
-        Plots the concentrations in the different compartments over time
+        Plots the concentrations in the different compartments over time.
 
         :param name: the name of the model in question, e.g. IV, 2 peripheral compartments
         :return: ---
