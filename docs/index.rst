@@ -10,7 +10,17 @@ Welcome to PKModelling's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. automodule:: model
+   :members:
 
+.. automodule:: solution
+   :members:
+
+
+
+   
+
+PKModelling text
 
 Indices and tables
 ==================
