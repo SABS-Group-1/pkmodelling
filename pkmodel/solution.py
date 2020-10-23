@@ -3,7 +3,6 @@
 #
 
 import matplotlib.pylab as plt
-from pkmodel.model import Model
 import numpy as np
 import scipy.integrate
 
