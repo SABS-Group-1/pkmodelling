@@ -114,7 +114,12 @@ class Solution:
         _ = plt.figure()
 
         for i in range(0, self.solution.y.shape[0]):
-            plt.plot(self.solution.t, self.solution.y[i, :], label=name + "- cmpt" + str(i))
+            if i == 0:
+                plt.plot(self.solution.t, self.solution.y[i, :], label=name + " Central Compartment")
+            elif self.model.subcutaneous_compartment and i == self.solution.y.shape[0] - 1:
+                plt.plot(self.solution.t, self.solution.y[i, :], label=name + " Subcutaneous Compartment")
+            else:
+                plt.plot(self.solution.t, self.solution.y[i, :], label=name + " " + self.model.peripheral_compartments[i-1]["name"])
         plt.legend()
         plt.ylabel('drug mass [ng]')
         plt.xlabel('time [h]')
